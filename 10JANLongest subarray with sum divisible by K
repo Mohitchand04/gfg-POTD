@@ -1,0 +1,22 @@
+//Longest subarray with sum divisible by K
+class Solution{
+    int longSubarrWthSumDivByK(int a[], int n, int k){
+        HashMap<Integer,Integer> map = new HashMap<>();
+        map.put(0,-1);                                 //initialised the map with 0,-1 for the case when the whole array sum is divisible by k
+        int sum = 0;
+        int maxLen = Integer.MIN_VALUE;
+        for(int i = 0;i<n;i++){
+              sum +=a[i];
+              int remainder = sum%k;
+              if(remaider<0){
+                remainder+=k;
+              }
+              if(!map.containsKey(remainder)){
+                map.put(remainder,i);
+              }else{
+                maxLen = Math.max(maxLen,i-map.get(remainder));
+              }
+        }
+// return maxLen; this will fail if the remainder doesnt match even for 1 time.
+        return (maxLen == Integer.MIN_VALUE)?0:maxLen;
+}
