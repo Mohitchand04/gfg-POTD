@@ -1,0 +1,31 @@
+//recursion
+class Solution{
+    static int numberSequence(int m, int n)
+    {
+        // code here
+        return func(m,n,1,0);
+
+    }    
+    static int func(int m,int n,int curr,int i){
+        if(i==n){
+            return 1;
+        }
+        if(curr>m){
+            return 0;
+        }
+        int take = func(m,n,2*curr,i+1);
+        int notTake = func(m,n,curr+1,i);
+        return take+notTake;
+    }
+}
+
+//2nd approach
+class Solution{
+    static int numberSequence(int m, int n)
+    {
+        // code here
+        if(n==0){return 1;
+        if(n > m)return 0;
+       return numberSequence(m/2,n-1)+ numberSequence(m-1,n);
+    }
+}
