@@ -1,0 +1,28 @@
+// we need to keep in mind which integers to skip like if the int is already used or is similar to the prev 
+class Solution {
+    static ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+    static ArrayList<ArrayList<Integer>> uniquePerms(ArrayList<Integer> arr , int n) {
+        // code here
+        ans.clear(); // without this the ans is storing the garbage values of prev 
+        Collections.sort(arr);
+        boolean used[] = new boolean[n];
+        helper(arr,new ArrayList(),used);
+        return ans;
+    }
+    static void helper(ArrayList<Integer> arr,ArrayList<Integer> curr,boolean[] used){
+        if(curr.size() == arr.size()){
+            ans.add(new ArrayList<>(curr));
+            return;
+        }        
+        for(int i = 0;i<arr.size();i++){
+            if(used[i] || (i>0 && arr.get(i)==arr.get(i-1) && !used[i-1])){
+                continue;
+            }
+            used[i]=true;
+            curr.add(arr.get(i));
+            helper(arr,curr,used);
+            curr.remove(curr.size()-1);
+            used[i] = false;
+        }
+    }
+};
