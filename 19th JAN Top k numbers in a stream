@@ -1,0 +1,39 @@
+class Solution {
+    static class pair{
+    int num;
+    int freq;
+    pair(int n,int f){
+        this.num = n;
+        this.freq = f;
+        }
+    }
+    public static ArrayList<ArrayList<Integer>> kTop(int[] arr, int N, int k) {
+        // code here
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i : arr){
+            ArrayList<Integer> a = new ArrayList<>();
+            map.put(i,map.getOrDefault(i,0)+1);
+            PriorityQueue<pair> pq = new PriorityQueue<>((x,y)->{
+                if(x.freq == y.freq){
+                    return x.num - y.num; //if freq same smaller will be stored first
+                } 
+                return y.freq-x.freq; // if freq different than higher freq number will be stored first
+            });
+            for(int key: map.keySet()){
+                pq.add(new pair(key,map.get(key)));
+            }
+            int c = 0;
+            while(!pq.isEmpty()){
+                if(c<k){
+                    a.add(pq.peek().num);
+                    c++;
+                }
+                pq.poll();
+            }
+            ans.add(a);
+        }
+        return ans;
+    }
+}
+        
