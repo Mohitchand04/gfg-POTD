@@ -1,0 +1,23 @@
+//concept - we asked wvery node that how many extra candies do u and your child have to pass above.
+class Solution
+{
+    // static int moves = 0;
+    public static int distributeCandy(Node root)
+    {
+        //code here
+        int[] moves = {0};
+        help(root,moves);
+        return moves[0];
+    }
+    public static int help(Node root,int[] moves){
+        //base case 
+        if(root == null){
+            return 0;
+        }
+        int left = help(root.left,moves);
+        int right = help(root.right,moves);
+        moves[0]+= Math.abs(left)+Math.abs(right);
+        
+        return (left+right+root.data)-1;
+    }
+}
