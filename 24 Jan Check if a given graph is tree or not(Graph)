@@ -1,0 +1,42 @@
+// conver the edges to adjacency list and the recursively check 
+//if the curr is parent then continue
+// if curr is already visited than cycle and return false
+class Solution {
+    public boolean isTree(int n, int m, ArrayList<ArrayList<Integer>> edges) 
+    {
+        // converting the edges to graph adjaceny list
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        for(int i = 0;i<n;i++){
+            graph.add(new ArrayList<>());   
+        }
+        for(ArrayList<Integer> edge : edges){
+            int u = edge.get(0);
+            int v = edge.get(1);
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        boolean vis[] = new boolean[n];
+        boolean ans = func(graph,vis,-1,0);
+        for(int i = 0;i<n;i++){
+            if(!vis[i]){
+                return false;
+            }
+        }
+        return ans;
+    }
+    public boolean func(ArrayList<ArrayList<Integer>> graph,boolean[] vis,int parent,int curr){
+        vis[curr]=true;
+        for(int i:graph.get(curr)){
+            if(i==parent){
+                continue;
+            }
+            if(vis[i]){ // if curr already vis means cycle
+                return false;
+            }
+            if(!func(graph,vis,curr,i)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
