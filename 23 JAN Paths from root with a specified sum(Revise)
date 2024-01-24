@@ -1,0 +1,24 @@
+//we subtract the curr node value from the sum recursively if the sum becomes 0 we add the path and call the function recursively
+class Solution
+{
+    public static ArrayList<ArrayList<Integer>> printPaths(Node root, int sum)
+    {
+        // code here
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        func(ans,root,sum,new ArrayList<>());
+        return ans;
+    }
+    public static void func(ArrayList<ArrayList<Integer>> ans,Node node,int sum,ArrayList<Integer> curr){
+        if(node == null){
+            return;
+        }
+        curr.add(node.data);
+        sum-=node.data;
+        if(sum==0){
+            ans.add(new ArrayList<>(curr));
+        }
+        func(ans,node.left,sum,curr);
+        func(ans,node.right,sum,curr);
+        curr.remove(curr.size()-1);   
+    }
+}
