@@ -1,0 +1,42 @@
+// using sieve algo to fing all the prime than using the BFS
+class Solution{
+    int solve(int num1,int num2){
+        //code here
+        int n = 10000;
+        int prime[] = new int[10000];
+        Arrays.fill(prime,1);
+        for(int i = 2;i*i<10000;i++){
+            if(prime[i]==1){
+                for(int j=i*i;j<10000;j+=i){
+                    prime[j]=0;
+                }
+            }
+        }
+        int vis[] = new int[10000];
+        int dp[] = new int[10000];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(num1);
+        while(!q.isEmpty()){
+            int node = q.remove();
+            if(vis[node]==1){
+                continue;
+            }
+            vis[node]=1;
+            String num = Integer.toString(node);
+            for(int i = 0;i<4;i++){
+                for(char ch = '0';ch<='9';ch++){
+                    if((ch=='0'&& i ==0) || num.charAt(i)==ch){
+                        continue;
+                    }
+                    String next = num.substring(0,i)+ch+num.substring(i+1);
+                    int nxtNode = Integer.parseInt(next);
+                    if(prime[nxtNode]==1 && dp[nxtNode]==0){
+                        dp[nxtNode]=1+dp[node];
+                        q.add(nxtNode);
+                    }
+                }
+            }
+        }
+        return dp[num2];
+    }
+}
