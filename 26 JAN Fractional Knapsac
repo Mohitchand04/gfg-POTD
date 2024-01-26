@@ -1,0 +1,31 @@
+// fractionsal knapsack
+class Solution
+{
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int w, Item arr[], int n) 
+    {
+        // Your code here
+        double c[][] = new double[n][2];
+        for(int i = 0;i<n;i++){
+            c[i][0]=(double)i; // index
+            c[i][1]=(double)(arr[i].value)/arr[i].weight; // ration
+        }
+        double cap = (double)w;
+        double ans = 0;
+        Arrays.sort(c,Comparator.comparingDouble(o->o[1]));
+        for(int i = n-1;i>=0;i--){
+            int curIdx = (int)c[i][0];
+            double we = arr[curIdx].weight;
+            double val = arr[curIdx].value;
+            if(cap>we){
+                ans+=val;
+                cap-=we;
+                // System.out.println()
+            }else{
+                ans+=(c[i][1]*cap);
+                cap = 0;
+            }
+        }
+        return ans;
+    }
+}
