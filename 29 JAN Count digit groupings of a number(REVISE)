@@ -1,0 +1,58 @@
+//recursion
+class Solution
+{
+    public int TotalCount(String str)
+    {
+        return func(0,0,str.length(),str);
+    }
+    public int func(int preSum,int k,int len,String str){
+        //base case
+        if(k == len){
+            return 1;
+        }
+        int sum = 0;
+        int count=0;
+        for(int i = k;i<str.length();i++){
+            sum+=(str.charAt(i)-'0');
+            if(preSum<=sum){
+                count+=func(sum,i+1,len,str);   
+            }
+        }
+        return count;
+    }
+}
+//MEMOZIATION
+
+
+//User function Template for Java
+
+class Solution
+{
+    public int TotalCount(String str)
+    {
+        int n = str.length();
+        int dp[][]=new int[n+1][9*100+1]; //its for storing the length and the sum 
+        for(int i[] : dp){
+            Arrays.fill(i,-1);
+        }
+        return func(0,0,n,str,dp);
+    }
+    public int func(int preSum,int k,int len,String str,int[][] dp){ // k is position of partition
+        //base case
+        if(k == len){
+            return 1;
+        }
+        if(dp[k][preSum]!=-1){
+            return dp[k][preSum];
+        }
+        int sum = 0;
+        int count=0;
+        for(int i = k;i<str.length();i++){
+            sum+=(str.charAt(i)-'0');
+            if(preSum<=sum){
+                count+=func(sum,i+1,len,str,dp);   
+            }
+        }
+        return dp[k][preSum]=count;
+    }
+}
