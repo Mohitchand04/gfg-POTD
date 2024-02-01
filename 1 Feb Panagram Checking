@@ -1,0 +1,21 @@
+//i made a newStr converting all the characters of the given string into lower case 
+//than i made a str containing all the small alphabets from a to z 
+// i traversed through the str checking if my newStr have the curr element of str or not
+class Solution
+{
+    //Function to check if a string is Pangram or not.
+    public static boolean checkPangram  (String s) {
+        // your code here
+        String newStr = s.toLowerCase();
+        // System.out.print(newStr);
+        String str = "abcdefghijklmnonpqrstuvwxyz";
+        for(int i = 0;i<str.length();i++){
+            String curr = Character.toString(str.charAt(i));
+            // System.out.println(curr);
+            if(newStr.indexOf(curr)==-1){
+                return false;
+            }
+        }
+        return true;
+    }
+}
