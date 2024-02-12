@@ -1,0 +1,37 @@
+//basic O(n)^2
+class Solution{
+    static long sequence(int n){
+        // code here
+        int mod = 1000000007;
+        long ans = 0;
+        long lastNum = 1;
+        for(int i = 1;i<=n;i++){
+            long curr = 1;
+            lastNum +=i;
+            for(long j = lastNum-i;j<lastNum;j++){
+                curr=(curr*j)%mod;
+            }
+            ans = (ans+curr)%mod;
+        }
+        return ans;
+    }
+}
+
+// taking a count variable to see till where we have multiplied 
+class Solution{
+    static long sequence(int n){
+        // code here
+        int mod = 1000000007;
+        long ans = 0;
+        long count = 1;
+        for(int i = 1;i<=n;i++){
+            long mul = 1;
+            for(long j = 1;j<=i;j++){
+                mul = (mul*count)%mod;
+                count++;
+            }
+            ans = (ans+mul)%mod;
+        }
+        return ans;
+    }
+}
